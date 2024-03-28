@@ -81,3 +81,15 @@ exports.getAll = (Model, modelname = '') => asyncHandler(async (req, res) => {
     const results = await mongoQuery;
     return res.status(200).json({ results: results.length, pagination, data: results });
 });
+
+exports.search  = (Model) => 
+    asyncHandler(async (req, res, next) => {
+        const { keyword } = req.query;
+        const docs = await Model.find({
+            $or: [
+                { title: { $regex: keyword, $options: 'i' } },
+                { description: { $regex: keyword, $options: 'i' } }
+            ]
+        });
+        return res.status(200).json({ data: docs })
+    })
