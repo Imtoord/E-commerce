@@ -5,7 +5,7 @@ const categoryController = require('../controllers/categoryController');
 const categoryMiddleware = require('../middlewares/categoryMiddleware');
 
 // Nested route
-const { subCategoryRouter } = require('./subCategoryRouter');
+const subCategoryRouter= require('./subCategoryRouter');
 
 router.use('/:categoryId/subcategories', subCategoryRouter);
 

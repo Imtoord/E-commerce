@@ -1,5 +1,12 @@
 const { Brand } = require("../models/BrandModel");
-const { deleteOne, updateOne, applySlugify, getOne, createOne, getAll } = require("./factory");
+const {
+  deleteOne,
+  updateOne,
+  applySlugify,
+  getOne,
+  createOne,
+  getAll,
+} = require("./factory");
 
 /**
  * @description get all Brand
@@ -7,7 +14,7 @@ const { deleteOne, updateOne, applySlugify, getOne, createOne, getAll } = requir
  * @method get
  * @access public
  */
-exports.getBrands = getAll(Brand)
+exports.getBrands = getAll(Brand);
 
 /**
  * @description create new Brand
@@ -16,7 +23,7 @@ exports.getBrands = getAll(Brand)
  * @route api/brands
  * @access public
  */
-exports.createBrand = createOne(Brand)
+exports.createBrand = createOne(Brand);
 
 /**
  * @description get Brand
@@ -25,7 +32,7 @@ exports.createBrand = createOne(Brand)
  * @route api/brands/:id
  * @access public
  */
-exports.getBrand = getOne(Brand)
+exports.getBrand = getOne(Brand);
 
 /**
  * @description update Brand
@@ -34,7 +41,7 @@ exports.getBrand = getOne(Brand)
  * @route api/Brands/:id
  * @access public
  */
-exports.updateBrand = updateOne(Brand)
+exports.updateBrand = updateOne(Brand);
 
 /**
  * @description delete Brand
@@ -43,7 +50,6 @@ exports.updateBrand = updateOne(Brand)
  * @route api/brands/:id
  * @access public
  */
-exports.deleteBrand = deleteOne(Brand)
+exports.deleteBrand = deleteOne(Brand);
 
-
-exports.applySlugify = applySlugify()
+exports.applySlugify = applySlugify();

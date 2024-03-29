@@ -1,7 +1,14 @@
 const asyncHandler = require("express-async-handler");
 const { Product } = require("../models/ProductModel");
-const { deleteOne, updateOne, applySlugify, getOne, createOne, getAll, search } = require("./factory");
-
+const {
+  deleteOne,
+  updateOne,
+  applySlugify,
+  getOne,
+  createOne,
+  getAll,
+  search,
+} = require("./factory");
 
 /**
  * @description get all Products
@@ -9,7 +16,7 @@ const { deleteOne, updateOne, applySlugify, getOne, createOne, getAll, search } 
  * @method get
  * @access public
  */
-exports.getProducts = getAll(Product)
+exports.getProducts = getAll(Product);
 
 /**
  * @description create new Products
@@ -18,7 +25,7 @@ exports.getProducts = getAll(Product)
  * @route api/Products
  * @access private
  */
-exports.createProduct = createOne(Product)
+exports.createProduct = createOne(Product);
 
 /**
  * @description get Product
@@ -27,7 +34,7 @@ exports.createProduct = createOne(Product)
  * @route api/products/:id
  * @access public
  */
-exports.getProduct = getOne(Product)
+exports.getProduct = getOne(Product);
 
 /**
  * @description update Product
@@ -36,7 +43,7 @@ exports.getProduct = getOne(Product)
  * @route api/products/:id
  * @access public
  */
-exports.updateProduct = updateOne(Product)
+exports.updateProduct = updateOne(Product);
 
 /**
  * @description delete Product
@@ -45,7 +52,7 @@ exports.updateProduct = updateOne(Product)
  * @route api/products/:id
  * @access public
  */
-exports.deleteProduct = deleteOne(Product)
+exports.deleteProduct = deleteOne(Product);
 
 /**
  * @description search Product
@@ -55,7 +62,6 @@ exports.deleteProduct = deleteOne(Product)
  * @access public
  */
 
-exports.searchProduct = search(Product)
+exports.searchProduct = search(Product);
 
-
-exports.applySlugify = applySlugify()
+exports.applySlugify = applySlugify();

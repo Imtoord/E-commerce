@@ -1,6 +1,12 @@
 const { Category } = require("../models/CategoryModel");
-const { deleteOne, updateOne, applySlugify, getOne, createOne, getAll } = require("./factory");
-
+const {
+  deleteOne,
+  updateOne,
+  applySlugify,
+  getOne,
+  createOne,
+  getAll,
+} = require("./factory");
 
 /**
  * @description get all category
@@ -8,7 +14,7 @@ const { deleteOne, updateOne, applySlugify, getOne, createOne, getAll } = requir
  * @method get
  * @access public
  */
-exports.getCategories = getAll(Category)
+exports.getCategories = getAll(Category);
 
 /**
  * @description create new category
@@ -17,7 +23,7 @@ exports.getCategories = getAll(Category)
  * @route api/categories
  * @access public
  */
-exports.createCategory = createOne(Category)
+exports.createCategory = createOne(Category);
 
 /**
  * @description get category
@@ -26,7 +32,7 @@ exports.createCategory = createOne(Category)
  * @route api/category/:id
  * @access public
  */
-exports.getCategory = getOne(Category)
+exports.getCategory = getOne(Category);
 
 /**
  * @description update category
@@ -35,7 +41,7 @@ exports.getCategory = getOne(Category)
  * @route api/categories/:id
  * @access public
  */
-exports.updateCategory = updateOne(Category)
+exports.updateCategory = updateOne(Category);
 
 /**
  * @description delete category
@@ -44,6 +50,6 @@ exports.updateCategory = updateOne(Category)
  * @route api/categories/:id
  * @access public
  */
-exports.deleteCategory = deleteOne(Category)
+exports.deleteCategory = deleteOne(Category);
 
-exports.applySlugify = applySlugify()
+exports.applySlugify = applySlugify();

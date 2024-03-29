@@ -109,6 +109,12 @@ productSchema.pre('save', async function (next) {
     next()
 })
 
+
+productSchema.pre('find', function (next) {
+    this.populate( 'category', 'name -_id')
+    next()
+})
+
 const Product = mongoose.model('Product', productSchema);
 
 module.exports = { Product };
