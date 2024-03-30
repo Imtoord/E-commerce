@@ -17,7 +17,11 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 // middlewares
+app.set('view engine', 'ejs')
+app.use(express.static('public'))
+app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
+
 
 // routes
 app.use('/api', require('./routes/index'))

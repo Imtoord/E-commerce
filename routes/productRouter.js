@@ -1,33 +1,37 @@
-const { Router } = require('express');
+const { Router } = require("express");
 
-const router = Router();
-const productController = require('../controllers/productController');
-const productMiddleware = require('../middlewares/productMiddleware');
+const router = Router({ mergeParams: true });
+const productController = require("../controllers/productController");
+const productMiddleware = require("../middlewares/productMiddleware");
 
 // Product Routes
-router.get('/search', productController.searchProduct);
+router.get("/search", productController.searchProduct);
 
-router.route('/')
-    .get(productController.getProducts)
-    .post(
-        productMiddleware.validateCreateProduct,
-        productController.applySlugify,
-        productController.createProduct
-    );
+router
+  .route("/")
+  .get(productController.createfilter, productController.getProducts)
+  .post(
+    productController.createproduct,
+    productController.applySlugify,
+    productMiddleware.validateCreateProduct,
+    productController.createProduct
+  );
 
-router.route('/:id')
-    .get(
-        productMiddleware.validateGetProductParams,
-        productController.getProduct
-    )
-    .put(
-        productMiddleware.validateUpdateProduct,
-        productController.applySlugify,
-        productController.updateProduct
-    )
-    .delete(
-        productMiddleware.validateGetProductParams,
-        productController.deleteProduct
-    );
+router
+  .route("/:id")
+  .get(
+    productController.createfilter,
+    productMiddleware.validateGetProductParams,
+    productController.getProduct
+  )
+  .put(
+    productMiddleware.validateUpdateProduct,
+    productController.applySlugify,
+    productController.updateProduct
+  )
+  .delete(
+    productMiddleware.validateGetProductParams,
+    productController.deleteProduct
+  );
 
 module.exports = router;

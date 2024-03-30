@@ -2,6 +2,9 @@ const router = require("express").Router();
 const userController = require("../controllers/userController");
 const userMiddleware = require("../middlewares/userMiddleware");
 
+const cartRouter = require("./cartRouter");
+
+router.use("/:userId/cart", cartRouter);
 router
   .route("/")
   .get(userController.getUsers)

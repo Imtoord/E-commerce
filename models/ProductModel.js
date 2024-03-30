@@ -79,6 +79,7 @@ const productSchema = new mongoose.Schema({
 
 // chack if category id &subcategories id& brand id is exist in db or not 
 productSchema.pre('save', async function (next) {
+    console.log(this.category);
     const category = await Category.findById(this.category)
     if (!category) {
         return next(new ErrorHandler('category not found', 404))
@@ -109,11 +110,11 @@ productSchema.pre('save', async function (next) {
     next()
 })
 
-
-productSchema.pre('find', function (next) {
-    this.populate( 'category', 'name -_id')
-    next()
-})
+//all find findById and anther with regiler 
+productSchema.pre(["find", "findOne", "findById", "save"], function (next) {
+  this.populate("category", "name -_id");
+  next();
+});
 
 const Product = mongoose.model('Product', productSchema);
 

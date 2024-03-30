@@ -12,12 +12,38 @@ const {
 
 /**
  * @description get all Products
- * @route api/products
+ * @route api/products || api/:categoryId/products
  * @method get
  * @access public
  */
 exports.getProducts = getAll(Product);
 
+/**
+ * @description create filter object
+ * @param {categoryId} req
+ * @method get
+ * @route api/:categoryId/products
+ */
+exports.createfilter = (req, res, next) => {
+  // console.log(req.params);
+  if (req.params.categoryId) {
+    req.filterobj = { category: req.params.categoryId };
+  }
+  next();
+};
+/**
+ * @description create new Products
+ * @param {categoryId} req 
+ * @method post
+ * @route api/:categoryId/products
+ */
+exports.createproduct = (req, res, next) => {
+  // console.log(req.params);
+  if (req.params.categoryId) {
+    req.body.category = req.params.categoryId;
+  }
+  next();
+};
 /**
  * @description create new Products
  * @param {name} req

@@ -18,6 +18,7 @@ exports.deleteOne = (Model) =>
 // update
 exports.updateOne = (Model) =>
   asyncHandler(async (req, res, next) => {
+    
     const docs = await Model.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
     });
@@ -36,7 +37,7 @@ exports.applySlugify = () =>
     if (req.body.name) {
       req.body.slug = slugify(req.body.name);
     } else if (req.body.title) {
-      req.body.slug = slugify(req.body.name);
+      req.body.slug = slugify(req.body.title);
     }
     next();
   });
@@ -65,14 +66,16 @@ exports.createOne = (Model) =>
 
 exports.getAll = (Model, modelname = "") =>
   asyncHandler(async (req, res) => {
-    let filterobj = {};
-    if (req.params.categoryId) {
-      filterobj = { category: req.params.categoryId };
+    let filterobjx = {};
+    if (req.filterobj) {
+      filterobjx = req.filterobj;
     }
 
+    console.log("object");
+    console.log(filterobjx);
     // build query
     const documentCounet = await Model.countDocuments();
-    const docs = new ApiFeatures(Model.find(filterobj), req.query)
+    const docs = new ApiFeatures(Model.find(filterobjx), req.query)
       .sort()
       .Pagination(documentCounet)
       .fields()

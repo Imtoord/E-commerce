@@ -13,7 +13,7 @@ const userSchema = new Schema({
   lastName: { type: String, required: true },
   role: { type: String, required: true, default: "user" },
   access_token: { type: String },
-});
+},{timestamps : true});
 
 userSchema.pre("save", function (next) {
   // Generate access_token only if the user is new (i.e., being registered)
