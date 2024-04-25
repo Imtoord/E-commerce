@@ -2,16 +2,16 @@ const jwt = require("jsonwebtoken");
 const nodemailer = require("nodemailer");
 const { User } = require("../models/UserModel");
 
-exports.getEmail = (req, res, next) => {
-  res.render("email", { error: "" });
-};
-
 exports.checkpassword = async (req, res, next) => {
   const { email } = req.body;
+  console.log(req.body);
   try {
     const user = await User.findOne({ email });
     if (!user) {
-      return res.render("email", { error: "User not found." });
+      return res.status(200).json({
+        success: false,
+        message: "User not found.",
+      });
     }
     const token = jwt.sign(
       { email: user.email },
@@ -36,12 +36,15 @@ exports.checkpassword = async (req, res, next) => {
     };
     await transporter.sendMail(mailOptions);
 
-    res.render("success", {
-      success: "Email sent successfully.",
+    return res.status(200).json({
+      success: true,
+      message: "Email sent successfully.",
     });
   } catch (error) {
-    console.error(error);
-    return res.status(500).render("email", { error: "An error occurred." });
+    res.status(200).json({
+      success: false,
+      message: `error: ${error}`,
+    });
   }
 };
 

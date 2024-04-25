@@ -1,3 +1,5 @@
+const asyncHandler = require("express-async-handler");
+
 const { Category } = require("../models/CategoryModel");
 const {
   deleteOne,
@@ -7,6 +9,16 @@ const {
   createOne,
   getAll,
 } = require("./factory");
+const {
+  uploadSingleImage,
+  resizeImage,
+} = require("../middlewares/uploadImageMiddleware");
+
+exports.upload = uploadSingleImage("image");
+
+// Image processing
+const arr = ["categories", "category", "jpeg", 1000, 1000, 90];
+exports.resizeImage = resizeImage(arr);
 
 /**
  * @description get all category
@@ -53,3 +65,14 @@ exports.updateCategory = updateOne(Category);
 exports.deleteCategory = deleteOne(Category);
 
 exports.applySlugify = applySlugify();
+
+exports.isExsit = asyncHandler(async (req, res, next) => {
+  const { name } = req.body;
+  const category = await Category.findOne({ name });
+  if (category)
+    return res.status(400).json({
+      success: false,
+      message: `Category is already exist`,
+    });
+  next();
+});

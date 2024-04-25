@@ -10,7 +10,7 @@ router
     // cartMiddleware.validateCreateCart,
     cartController.createCartParam,
     cartController.createCart
-  )
+  );
 
 router
   .route("/:id")

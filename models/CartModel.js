@@ -29,9 +29,10 @@ cartSchema.pre("save", async function (next) {
   const productsInCart = await Product.find({
     _id: { $in: this.products.map((product) => product.product_id) },
   });
-
+  console.log(productsInCart.length);
+  console.log(this.products.length);
   if (productsInCart.length !== this.products.length) {
-    next(new ErrorHandler("Product not found", 403));
+    next(new ErrorHandler("Product not foundXX", 403));
   }
   // console.log(productsInCart);
 

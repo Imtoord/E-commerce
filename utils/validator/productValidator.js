@@ -11,7 +11,7 @@ exports.createProductSchema = Joi.object({
     priceAfterDiscount: Joi.number().less(Joi.ref('price')),
     colors: Joi.array().items(Joi.string()),
     imageCover: Joi.string().required(),
-    image: Joi.array().items(Joi.string()),
+    images: Joi.array().items(Joi.string()),
     category: Joi.string().required(),
     subcategories: Joi.array().items(Joi.string()),
     brand: Joi.string(),

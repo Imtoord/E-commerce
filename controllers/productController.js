@@ -1,4 +1,7 @@
-const asyncHandler = require("express-async-handler");
+const {
+  uploadMixOfImage,
+  resizeMixOfImage,
+} = require("../middlewares/uploadImageMiddleware");
 const { Product } = require("../models/ProductModel");
 const {
   deleteOne,
@@ -9,6 +12,20 @@ const {
   getAll,
   search,
 } = require("./factory");
+
+exports.uploadProductImage = uploadMixOfImage([
+  {
+    name: "imageCover",
+    maxCount: 1,
+  },
+  {
+    name: "images",
+    maxCount: 5,
+  },
+]);
+
+const arr = ['products']
+exports.ressizeProductImage = resizeMixOfImage(arr);
 
 /**
  * @description get all Products
@@ -33,7 +50,7 @@ exports.createfilter = (req, res, next) => {
 };
 /**
  * @description create new Products
- * @param {categoryId} req 
+ * @param {categoryId} req
  * @method post
  * @route api/:categoryId/products
  */
@@ -60,7 +77,7 @@ exports.createProduct = createOne(Product);
  * @route api/products/:id
  * @access public
  */
-exports.getProduct = getOne(Product);
+exports.getProduct = getOne(Product, "reviews");
 
 /**
  * @description update Product

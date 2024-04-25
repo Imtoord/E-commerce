@@ -6,7 +6,7 @@ class ApiFeatures {
 
     Pagination(documentCount) {
         const page = parseInt(this.query.page, 10) || 1;
-        const limit = parseInt(this.query.limit, 10) || 5;
+        const limit = parseInt(this.query.limit, 10) || 100;
         const skip = (page - 1) * limit;
         this.mongoQuery = this.mongoQuery.skip(skip).limit(limit);
         const pages = Math.ceil(documentCount / limit);

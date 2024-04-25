@@ -46,7 +46,7 @@ const productSchema = new mongoose.Schema({
         required: true
     },
 
-    image: [String],
+    images: [String],
 
     category: {
         type: mongoose.Schema.Types.ObjectId,
@@ -74,7 +74,12 @@ const productSchema = new mongoose.Schema({
         max: 5,
         default: 0
     }
-}, { timestamps: true });
+}, { 
+    timestamps: true,
+    // to enable virtual populate
+    toJSON: { virtuals: true },
+    toObject: { virtuals: true }
+});
 
 
 // chack if category id &subcategories id& brand id is exist in db or not 
@@ -115,6 +120,13 @@ productSchema.pre(["find", "findOne", "findById", "save"], function (next) {
   this.populate("category", "name -_id");
   next();
 });
+
+
+productSchema.virtual("reviews", {
+    ref :"Review",
+    foreignField:"product",
+    localField: "_id"
+})
 
 const Product = mongoose.model('Product', productSchema);
 

@@ -2,6 +2,7 @@ const asyncHandler = require("express-async-handler");
 const slugify = require("slugify");
 const { ErrorHandler } = require("../utils/errorHandler");
 const ApiFeatures = require("../utils/apiFeatuers");
+const { populate } = require("dotenv");
 
 // 🫡🥶😬 delete
 exports.deleteOne = (Model) =>
@@ -10,7 +11,8 @@ exports.deleteOne = (Model) =>
     if (!docs) {
       return next(new ErrorHandler(`${Model.name} not found`, 404));
     }
-    return res.status(203).json({
+    return res.status(204).json({
+      success: true,
       message: `${Model.name} deleted successfully`,
     });
   });
@@ -27,6 +29,7 @@ exports.updateOne = (Model) =>
     }
     await docs.save();
     return res.status(200).json({
+      success: true,
       message: `${Model.name}  updated successfully`,
       data: docs,
     });
@@ -38,32 +41,43 @@ exports.applySlugify = () =>
       req.body.slug = slugify(req.body.name);
     } else if (req.body.title) {
       req.body.slug = slugify(req.body.title);
+    } else if (req.body.username) {
+      req.body.slug = slugify(req.body.username);
     }
     next();
   });
 
-exports.getOne = (Model) =>
+exports.getOne = (Model, populateOpt) =>
   asyncHandler(async (req, res, next) => {
-    const docs = await Model.findById(req.params.id);
+    let docs = Model.findById(req.params.id);
+    if (populateOpt) {
+      docs = docs.populate(populateOpt);
+    }
+
+    docs = await docs;
+
     if (!docs) {
       return next(new ErrorHandler(`${Model.name} not found ;(`, 404));
     }
-    return res.status(200).json({ data: docs });
+    return res.status(201).json({ success: true, data: docs });
   });
+
 
 exports.createOne = (Model) =>
   asyncHandler(async (req, res, next) => {
     if (req.params.categoryId) {
       req.body.category = req.params.categoryId;
     }
-    const docs = await new Model(req.body);
+    const docs = await Model.create(req.body);
     await docs.save();
     return res.status(201).json({
+      success: true,
       message: `${Model.name} create successfully`,
       data: docs,
     });
   });
 
+  
 exports.getAll = (Model, modelname = "") =>
   asyncHandler(async (req, res) => {
     let filterobjx = {};
@@ -86,7 +100,12 @@ exports.getAll = (Model, modelname = "") =>
     const results = await mongoQuery;
     return res
       .status(200)
-      .json({ results: results.length, pagination, data: results });
+      .json({
+        success: true,
+        results: results.length,
+        pagination,
+        data: results,
+      });
   });
 
 exports.search = (Model) =>
@@ -98,5 +117,5 @@ exports.search = (Model) =>
         { description: { $regex: keyword, $options: "i" } },
       ],
     });
-    return res.status(200).json({ data: docs });
+    return res.status(200).json({ success: true, data: docs });
   });

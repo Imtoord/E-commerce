@@ -15,3 +15,11 @@ exports.validateUpdateUser = (req, res, next) => {
     next
   );
 };
+
+exports.changePassword = (req, res, next) => {
+  UserValidator.chack(
+    { ...req.params, ...req.body },
+    UserValidator.changePassword,
+    next
+  );
+};

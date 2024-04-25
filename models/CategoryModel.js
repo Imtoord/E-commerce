@@ -10,7 +10,8 @@ const categorySchema = new mongoose.Schema({
         type: String,
         lowercase: true,
         unique: true,
-    }
+    },
+    image: String
 }, { timestamps: true });
 
 const Category = mongoose.model('Category', categorySchema);

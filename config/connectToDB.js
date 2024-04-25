@@ -6,5 +6,5 @@ module.exports.connectToDB = () => {
         .then((info) => {
             console.log(`Connect To Mongo DB ${info.connection.name}, to host: ${info.connection.host}`.brightYellow)
         })
-        .catch (err => { console.log("err connection to Mongo DB", err); })
+        .catch (err => { console.log("err connection to Mongo DB"); })
 }
