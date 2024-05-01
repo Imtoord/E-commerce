@@ -8,6 +8,8 @@ const cartRouter = require("./cartRouter");
 const forgetPasswordController = require("./forgetPasswordController");
 const authRouter = require("./authRouter");
 const reviewRouter = require("./reviewRouter");
+const wishListRouter = require("./wishListRouter");
+const addressestRouter = require("./addressesRouter");
 
 Router.use("/categories", categoryRouter);
 Router.use("/subcategories", subCategoryRouter);
@@ -18,5 +20,7 @@ Router.use("/forgetpassword", forgetPasswordController);
 Router.use("/users", userRouter);
 Router.use("/auth", authRouter);
 Router.use("/reviews", reviewRouter);
+Router.use("/wishList", wishListRouter);
+Router.use("/addresses", addressestRouter);
 
 module.exports = Router;

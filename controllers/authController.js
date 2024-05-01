@@ -167,8 +167,9 @@ exports.protect = asyncHandler(async (req, res, next) => {
  */
 exports.isAdmin = asyncHandler((req, res, next) => {
   if (req.user.role === "admin") {
-    next();
+    console.log("..............///");
+    return next();
   }
-
+  console.log(req.user);
   next(new ErrorHandler("You are not allwoed to access this route", 403));
 });

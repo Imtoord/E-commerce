@@ -8,12 +8,6 @@ const cartRouter = require("./cartRouter");
 router.use("/:userId/cart", cartRouter);
 
 router.use(protect);
-router.delete(
-  "/un-active",
-  userController.getMe,
-  userController.unActive,
-  userController.updateUser
-);
 
 router.get("/me", userController.getMe, userController.getUser);
 router.put(
@@ -32,6 +26,12 @@ router.put(
 
 // admin
 router.use(isAdmin);
+
+router.delete(
+  "/un-active/:id",
+  userController.unActive,
+  userController.updateUser
+);
 
 router.post(
   "/changePassword/:id",

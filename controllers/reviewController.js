@@ -1,4 +1,5 @@
 const { Review } = require("../models/ReviewModel");
+const { ErrorHandler } = require("../utils/errorHandler");
 
 const {
   deleteOne,
@@ -24,25 +25,15 @@ exports.getId = (req, res, next) => {
   next();
 };
 
-exports.createId = (req, res, next) => {
-  // console.log(JSON.stringify(req.params));
-  if (req.params.productId) {
-    req.body.product = req.params.productId;
-  }
-  next();
-};
-exports.exist = (req, res, next) => {
-  const review = Review.findOne({
-    user: req.body.user,
-    product: req.body.product,
-  });
 
+exports.exist = async (req, res, next) => {
+  const review = await Review.findOne({ user: req.user._id, product: req.params.productId });
   if (review) {
-    return res.status(400).json({
-      message: "You already reviewed this product",
-    });
+    return next(new ErrorHandler("You already reviewed this product!!!!", 400));
   }
-
+  req.body.user = req.user._id.toString();
+  req.body.product = req.params.productId || req.params.id;
+  // console.log(req.body.user);
   next();
 };
 
@@ -72,6 +63,14 @@ exports.getReview = getOne(Review);
  * @access private/user
  */
 exports.updateReview = updateOne(Review);
+
+exports.existToDele = (req, res, next)=>{
+  const review = Review.findOne({_id: req.params.id});
+  if(!review){
+    return next(new ErrorHandler("Review not found", 404));
+  }
+  next();
+}
 
 /**
  * @description delete Review

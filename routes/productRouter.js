@@ -16,7 +16,7 @@ router
   .get(productController.createfilter, productController.getProducts)
   .post(
     protect,
-    isAdmin,
+    // isAdmin,
     productController.uploadProductImage,
     productController.ressizeProductImage,
     productController.createproduct,

@@ -26,10 +26,14 @@ app.use(express.static(path.join(__dirname, "uploads")));
 // routes
 // loc// api/v1/books 
 
+app.use('/', (req, res)=>{res.json({
+    message: 'hello world'
+})})
+
 app.use('/api', require('./routes/index'))
 
 app.all('*', (req, res, next) => {
-    next(new ErrorHandler("404 not found ;( ", 404))
+    next(new ErrorHandler(`can not found ${req.method} => ${req.originalUrl}`, 404))
 })
 
 // error Handler

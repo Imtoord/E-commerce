@@ -25,13 +25,6 @@ exports.createReviewValidation = asyncHandler(async (req, res, next) => {
     return next(new ErrorHandler(error.message, 400));
   }
 });
-
-/**
- * @desc Update Review Validation
- * @method PUT /api/reviews/:id
- * @param {id}- Review ID
- * @access privet
- */
 exports.updateReviewValidation = asyncHandler(async (req, res, next) => {
   try {
     const schema = Joi.object({
@@ -41,8 +34,13 @@ exports.updateReviewValidation = asyncHandler(async (req, res, next) => {
     });
 
     const review = await Review.findById(req.params.id);
-    if (review.user._id.toString() !== req.user._id.toString())
+    if (!review) {
+      return next(new ErrorHandler("Review not found", 404));
+    }
+
+    if (review.user._id.toString() !== req.user._id.toString()) {
       return next(new ErrorHandler("You can't update this review", 400));
+    }
 
     await schema.validateAsync({ ...req.params, ...req.body });
 
@@ -52,12 +50,6 @@ exports.updateReviewValidation = asyncHandler(async (req, res, next) => {
   }
 });
 
-/**
- * @desc delete Review Validation
- * @method delete /api/reviews/:id
- * @param {id}- Review ID
- * @access privet
- */
 exports.deleteReviewValidation = asyncHandler(async (req, res, next) => {
   try {
     const schema = Joi.object({
@@ -66,8 +58,15 @@ exports.deleteReviewValidation = asyncHandler(async (req, res, next) => {
 
     if (req.user.role !== "admin") {
       const review = await Review.findById(req.params.id);
-      if (review.user._id.toString() !== req.user._id.toString())
+      console.log(review);
+      if (!review) {
+        return next(new ErrorHandler("Review not found", 404));
+      }
+      console.log(review.user._id.toString());
+      console.log(req.user._id.toString());
+      if (review.user._id.toString() !== req.user._id.toString()) {
         return next(new ErrorHandler("You can't delete this review", 400));
+      }
     }
 
     await schema.validateAsync({ ...req.params });

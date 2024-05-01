@@ -1,5 +1,5 @@
-const { func } = require("joi");
 const mongoose = require("mongoose");
+const { Product } = require("./ProductModel");
 
 const { Schema } = mongoose;
 
@@ -30,9 +30,9 @@ const reviewSchema = new Schema(
 
 reviewSchema.pre(/^find/, function (next) {
   this.populate({
-    path: 'user',
-    select: 'username'
-  })
+    path: "user",
+    select: "username",
+  });
   next();
 });
 
@@ -47,15 +47,23 @@ reviewSchema.statics.getAverageRating = async function (productId) {
       $group: {
         _id: "product",
         averageRating: { $avg: "$rating" },
-        Quantity: { $sum: 1 },
+        count: { $sum: 1 },
       },
     },
   ]);
-  console.log(res);
+
+  await Product.findByIdAndUpdate(productId, {
+    averageRating: res[0].averageRating,
+    reviewCount: res[0].count,
+  });
 };
 
-reviewSchema.post("save", function () {
-  this.constructor.getAverageRating(this.product);
+reviewSchema.post("save", async function () {
+  await this.constructor.getAverageRating(this.product);
+});
+
+reviewSchema.post("remove", async function () {
+  await this.constructor.getAverageRating(this.product);
 });
 
 const Review = mongoose.model("Review", reviewSchema);

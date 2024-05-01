@@ -170,6 +170,12 @@ exports.deleteUser = deleteOne(User);
 
 exports.unActive = async(req, res, next) => {
   const user= await User.findOne({_id: req.params.id});
+  if(!user){
+    return res.status(404).json({
+      message: `user not found`
+      
+    })
+  }
   req.body.active = !user.active
   next();
 };

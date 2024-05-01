@@ -12,9 +12,8 @@ router
   .get(reviewController.getId, reviewController.getReviews)
   .post(
     protect,
-    reviewController.createId,
-    createReviewValidation,
     reviewController.exist,
+    createReviewValidation,
     reviewController.createReview
   );
 
@@ -22,6 +21,11 @@ router
   .route("/:id")
   .get(reviewController.getReview)
   .put(protect, updateReviewValidation, reviewController.updateReview)
-  .delete(protect, deleteReviewValidation, reviewController.deleteReview);
+  .delete(
+    protect,
+    reviewController.existToDele,
+    deleteReviewValidation,
+    reviewController.deleteReview
+  );
 
 module.exports = router;

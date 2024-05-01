@@ -2,30 +2,33 @@ const asyncHandler = require("express-async-handler");
 const slugify = require("slugify");
 const { ErrorHandler } = require("../utils/errorHandler");
 const ApiFeatures = require("../utils/apiFeatuers");
-const { populate } = require("dotenv");
 
 // 🫡🥶😬 delete
 exports.deleteOne = (Model) =>
   asyncHandler(async (req, res, next) => {
-    const docs = await Model.findByIdAndDelete(req.params.id);
-    if (!docs) {
-      return next(new ErrorHandler(`${Model.name} not found`, 404));
-    }
-    return res.status(204).json({
-      success: true,
-      message: `${Model.name} deleted successfully`,
-    });
+      const doc = await Model.findByIdAndDelete(req.params.id);
+      if (!doc) {
+        return next(new ErrorHandler(`${Model.name} not found`, 404));
+      }
+      await doc.remove();
+
+      return res.status(204).json({
+        success: true,
+        message: `${Model.name} deleted successfully`,
+      });
+    
   });
+
+
 
 // update
 exports.updateOne = (Model) =>
   asyncHandler(async (req, res, next) => {
-    
     const docs = await Model.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
     });
     if (!docs) {
-      return next(new ErrorHandler(`${Model.name} not found`, 404));
+      return next(new ErrorHandler(`${Model} not found`, 404));
     }
     await docs.save();
     return res.status(200).json({
@@ -35,6 +38,7 @@ exports.updateOne = (Model) =>
     });
   });
 
+// applay slugify
 exports.applySlugify = () =>
   asyncHandler((req, res, next) => {
     if (req.body.name) {
@@ -46,6 +50,7 @@ exports.applySlugify = () =>
     }
     next();
   });
+
 
 exports.getOne = (Model, populateOpt) =>
   asyncHandler(async (req, res, next) => {
@@ -85,8 +90,8 @@ exports.getAll = (Model, modelname = "") =>
       filterobjx = req.filterobj;
     }
 
-    console.log("object");
-    console.log(filterobjx);
+    // console.log("object");
+    // console.log(filterobjx);
     // build query
     const documentCounet = await Model.countDocuments();
     const docs = new ApiFeatures(Model.find(filterobjx), req.query)
