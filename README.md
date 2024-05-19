@@ -76,3 +76,73 @@ Managing API features like pagination and searching.
 Managing user profiles and addresses.
 Allowing users to add products to their wishlist.
 Storing user preferences and order history.
+
+Routes:
+User Authentication:
+POST /api/auth/register: User registration.
+POST /api/auth/login: User login.
+GET /api/auth/logout: User logout.
+GET /api/auth/me: Get logged-in user profile.
+GET /api/auth/users: Get all users (admin only).
+GET /api/auth/users/:id: Get, update, or delete user by ID (admin only).
+Product Management
+Features:
+CRUD operations for products.
+Product categorization and association with brands.
+Routes:
+Products:
+GET /api/products: Get all products, create a new product.
+GET /api/products/:id: Get, update, delete product by ID.
+Categories:
+GET /api/categories: Get all categories, create a new category.
+GET /api/categories/:id: Get, update, delete category by ID.
+Brands:
+GET /api/brands: Get all brands, create a new brand.
+GET /api/brands/:id: Get, update, delete brand by ID.
+Order Management
+Features:
+CRUD operations for orders.
+Order status tracking and payment method handling.
+Routes:
+Orders:
+GET /api/orders: Get all orders, create a new order.
+GET /api/orders/:id: Get, update, and delete order by ID.
+Cart Management
+Features:
+Add, remove, and update items in the cart.
+Calculation of total prices and discounts for cart items.
+Routes:
+Cart:
+GET /api/cart: Get cart items, and add items to the cart.
+PUT /api/cart/:id: Update the item in the cart by ID.
+DELETE /api/cart/:id: Remove the item from the cart by ID.
+Reviews and Ratings
+Features:
+Submit product reviews and ratings.
+Calculation of average ratings for products.
+Routes:
+Reviews:
+GET /api/products/:productId/reviews: Get product reviews, and submit a new review.
+Coupon and Discount Management
+Features:
+Creation and application of coupons for discounts.
+Coupon validation and discount calculations in orders.
+Routes:
+Coupons:
+GET /api/coupons: Get all coupons, and create a new coupon.
+GET /api/coupons/:id: Get, update, delete coupons by ID.
+Category and Subcategory Management
+Features:
+CRUD operations for categories and subcategories.
+Association of products with categories.
+Routes:
+Categories:
+GET /api/categories: Get all categories, and create a new category.
+GET /api/categories/:id: Get, update, delete categories by ID.
+Subcategories:
+GET /api/subcategories: Get all subcategories, and create a new subcategory.
+GET /api/subcategories/:id: Get, update, and delete subcategories by ID.
+Other Features
+User Profile and Wishlist
+Pagination, Sorting, and Filtering, search
+Error Handling and Utilities
