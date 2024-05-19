@@ -130,7 +130,7 @@ Implemented middleware functions for request validation, authentication, and err
   <li>GET /api/users: Get all users (admin only).</li>
   <li>POST /api/users: Create a new user (admin only).</li>
   <li>GET /api/users/:id: Get a specific user by ID (admin only).</li>
-  <li>PUT /api/users/:id: Update a specific user by ID (admin only).</li>
+  <li>PUT /api/users/:id: Update a specific user by ID.</li>
   <li>DELETE /api/users/:id: Delete a specific user by ID (admin only).</li>
 </ul>
 
