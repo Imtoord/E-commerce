@@ -74,83 +74,115 @@ Implemented middleware functions for request validation, authentication, and err
 <p>7. Category and Subcategory Management</p>
 <p>8. Other Features</p>
 
-<h3>User Authentication</h3>
+<h3>Category Routes</h3>
 <ul>
-  <li>POST /api/auth/register: User registration.</li>
-  <li>POST /api/auth/login: User login.</li>
-  <li>GET /api/auth/logout: User logout.</li>
-  <li>GET /api/auth/me: Get logged-in user profile.</li>
-  <li>GET /api/auth/users: Get all users (admin only).</li>
-  <li>GET /api/auth/users/:id: Get, update, or delete user by ID (admin only).</li>
-</ul>
-  
-<h3>Product Management</h3>
-<p>Features: CRUD operations for products, product categorization, and association with brands.</p>
-<h4>Products</h4>
-<ul>
-  <li>GET /api/products: Get all products, create a new product.</li>
-  <li>GET /api/products/:id: Get, update, delete product by ID.</li>
-</ul>
-<h4>Categories</h4>
-<ul>
-  <li>GET /api/categories: Get all categories, create a new category.</li>
-  <li>GET /api/categories/:id: Get, update, delete category by ID.</li>
-</ul>
-<h4>Brands</h4>
-<ul>
-  <li>GET /api/brands: Get all brands, create a new brand.</li>
-  <li>GET /api/brands/:id: Get, update, delete brand by ID.</li>
+  <li>GET /api/categories: Get all categories.</li>
+  <li>POST /api/categories: Create a new category.</li>
+  <li>GET /api/categories/:id: Get a specific category by ID.</li>
+  <li>PUT /api/categories/:id: Update a specific category by ID.</li>
+  <li>DELETE /api/categories/:id: Delete a specific category by ID.</li>
+  <li>GET /api/categories/:categoryId/subcategories: Get all subcategories of a specific category.</li>
+  <li>GET /api/categories/:categoryId/products: Get all products of a specific category.</li>
 </ul>
 
-<h3>Order Management</h3>
-<p>Features: CRUD operations for orders, order status tracking, and payment method handling.</p>
-<h4>Orders</h4>
+<h3>Subcategory Routes</h3>
 <ul>
-  <li>GET /api/orders: Get all orders, create a new order.</li>
-  <li>GET /api/orders/:id: Get, update, delete order by ID.</li>
+  <li>GET /api/subcategories: Get all subcategories.</li>
+  <li>POST /api/subcategories: Create a new subcategory.</li>
+  <li>GET /api/subcategories/:id: Get a specific subcategory by ID.</li>
+  <li>PUT /api/subcategories/:id: Update a specific subcategory by ID.</li>
+  <li>DELETE /api/subcategories/:id: Delete a specific subcategory by ID.</li>
 </ul>
 
-<h3>Cart Management</h3>
-<p>Features: Adding, removing, and updating items in the cart, calculation of total prices and discounts.</p>
-<h4>Cart</h4>
+<h3>Brand Routes</h3>
 <ul>
-  <li>GET /api/cart: Get cart items, and add items to the cart.</li>
-  <li>PUT /api/cart/:id: Update the item in the cart by ID.</li>
-  <li>DELETE /api/cart/:id: Remove the item from the cart by ID.</li>
+  <li>GET /api/brands: Get all brands.</li>
+  <li>POST /api/brands: Create a new brand.</li>
+  <li>GET /api/brands/:id: Get a specific brand by ID.</li>
+  <li>PUT /api/brands/:id: Update a specific brand by ID.</li>
+  <li>DELETE /api/brands/:id: Delete a specific brand by ID.</li>
 </ul>
 
-<h3>Reviews and Ratings</h3>
-<p>Features: Submit product reviews and ratings, calculation of average ratings for products.</p>
-<h4>Reviews</h4>
+<h3>Product Routes</h3>
 <ul>
-  <li>GET /api/products/:productId/reviews: Get product reviews, and submit a new review.</li>
+  <li>GET /api/products: Get all products.</li>
+  <li>POST /api/products: Create a new product.</li>
+  <li>GET /api/products/:id: Get a specific product by ID.</li>
+  <li>PUT /api/products/:id: Update a specific product by ID.</li>
+  <li>DELETE /api/products/:id: Delete a specific product by ID.</li>
+  <li>GET /api/products/search: Search for products.</li>
 </ul>
 
-<h3>Coupon and Discount Management</h3>
-<p>Features: Creation and application of coupons for discounts, coupon validation, and discount calculations in orders.</p>
-<h4>Coupons</h>
+<h3>Review Routes</h3>
 <ul>
-  <li>GET /api/coupons: Get all coupons, and create a new coupon.</li>
-  <li>GET /api/coupons/:id: Get, update, delete coupons by ID.</li>
+  <li>GET /api/products/:productId/reviews: Get all reviews for a specific product.</li>
+  <li>POST /api/products/:productId/reviews: Create a new review for a specific product.</li>
+  <li>GET /api/reviews/:id: Get a specific review by ID.</li>
+  <li>PUT /api/reviews/:id: Update a specific review by ID.</li>
+  <li>DELETE /api/reviews/:id: Delete a specific review by ID.</li>
 </ul>
-<h3>Category and Subcategory Management</h3>
-<p>Features: CRUD operations for categories and subcategories, association of products with categories.</p>
-<h4>Categories</h4>
+
+<h3>User Routes</h3>
 <ul>
-  <li>GET /api/categories: Get all categories, and create a new category.</li>
-  <li>GET /api/categories/:id: Get, update, delete categories by ID.</li>
+  <li>GET /api/users/me: Get the authenticated user's details.</li>
+  <li>PUT /api/users/updateUser: Update the authenticated user's details.</li>
+  <li>PUT /api/users/changePassword: Change the authenticated user's password.</li>
+  <li>GET /api/users: Get all users (admin only).</li>
+  <li>POST /api/users: Create a new user (admin only).</li>
+  <li>GET /api/users/:id: Get a specific user by ID (admin only).</li>
+  <li>PUT /api/users/:id: Update a specific user by ID (admin only).</li>
+  <li>DELETE /api/users/:id: Delete a specific user by ID (admin only).</li>
 </ul>
-<h4>Subcategories</h4>
+
+<h3>Authentication Routes</h3>
 <ul>
-  <li>GET /api/subcategories: Get all subcategories, and create a new subcategory.</li>
-  <li>GET /api/subcategories/:id: Get, update, and delete subcategories by ID.</li>
+  <li>POST /api/auth/signup: Register a new user.</li>
+  <li>POST /api/auth/login: Login with credentials.</li>
+  <li>DELETE /api/auth/logout: Logout the authenticated user.</li>
 </ul>
-<h3>Other Features</h3>
+
+<h3>Cart Routes</h3>
 <ul>
-  <li>User Profile and Wishlist</li>
-  <li>Pagination, Sorting, and Filtering, search</li>
-  <li>Error Handling and Utilities</li>
+  <li>GET /api/addToCarts: Get logged-in user's cart.</li>
+  <li>POST /api/addToCarts: Add a product to the cart.</li>
+  <li>DELETE /api/addToCarts: Clear logged-in user's cart.</li>
+  <li>DELETE /api/addToCarts/:id: Delete a specific item from the cart.</li>
+  <li>PUT /api/addToCarts/:id: Update a specific item in the cart.</li>
+  <li>PUT /api/addToCarts/applycoupon: Apply coupon to the cart.</li>
 </ul>
+
+<h3>Wishlist Routes</h3>
+<ul>
+  <li>POST /api/wishList: Add a product to the wishlist.</li>
+  <li>DELETE /api/wishList/:productId: Remove a product from the wishlist.</li>
+  <li>GET /api/wishList: Get logged-in user's wishlist.</li>
+</ul>
+
+<h3>Address Routes</h3>
+<ul>
+  <li>POST /api/addresses: Add an address for the logged-in user.</li>
+  <li>DELETE /api/addresses/:addressId: Remove an address for the logged-in user.</li>
+  <li>GET /api/addresses: Get all addresses of the logged-in user.</li>
+</ul>
+
+<h3>Coupon Routes</h3>
+<ul>
+  <li>GET /api/coupons: Get all coupons.</li>
+  <li>POST /api/coupons: Create a new coupon.</li>
+  <li>GET /api/coupons/:id: Get a specific coupon by ID.</li>
+  <li>PUT /api/coupons/:id: Update a specific coupon by ID.</li>
+  <li>DELETE /api/coupons/:id: Delete a specific coupon by ID.</li>
+</ul>
+
+<h3>Forget Password Routes</h3>
+<ul>
+  <li>POST /api/forgetpassword: Check password for reset.</li>
+  <li>GET /api/forgetpassword/:email/:token: Reset password page.</li>
+  <li>POST /api/forgetpassword/:email/:token: Update reset password.</li>
+</ul>
+
+
+
 <h2>Utilities</h2>
 <h3>ErrorHandler</h3>
 <p>Provides a custom error class for handling errors with status codes.</p>
